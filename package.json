@@ -1,0 +1,26 @@
+{
+  "name": "kali-express",
+  "version": "0.0.1",
+  "description": "A Node.js Skeleton App Using Express.js and MongoDB",
+  "main": "Server.js",
+  "scripts": {
+    "start": "node --use-strict Server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KaliAsha/KaliExpress.git"
+  },
+  "keywords": [
+    "Node.js",
+    "Skeleton",
+    "Express.js",
+    "MongoDB"
+  ],
+  "bugs": {
+    "url": "https://github.com/KaliAsha/KaliExpress/issues"
+  },
+  "homepage": "https://github.com/KaliAsha/KaliExpress#readme",
+  "author": "kaliasha <kaliasha.kali@gmail.com>",
+  "license": "MIT"
+}
