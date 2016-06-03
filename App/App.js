@@ -34,7 +34,10 @@ class App {
     })
     /** Routes Setup */
     Object.keys(appConf.routes).forEach(function (element, index) {
-      App.use(element, appConf.routes[element])
+      const ctrlString = appConf.routes[element]
+      const controller = ctrlString.split('@')[0]
+      const action = ctrlString.split('@')[1] || 'index'
+      App.use(element, require('./Controllers/' + controller)[action])
     })
     /** Errors Handling */
     App.use(appConf.errors.error404)

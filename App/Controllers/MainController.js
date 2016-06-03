@@ -1,10 +1,9 @@
 /* Dependencies */
-const express = require('express')
 
-const Router = express.Router()
+const MainController = {
+  index: function (req, res) {
+    res.render('index', { message: 'Hello World' })
+  }
+}
 
-Router.get('/', function(req, res) {
-  res.render('index', {message: 'Hello World'})
-})
-
-module.exports = Router
+module.exports = MainController
