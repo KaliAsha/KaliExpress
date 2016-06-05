@@ -1,6 +1,6 @@
 {
   "name": "kali-express",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A Node.js Skeleton App Using Express.js and MongoDB",
   "main": "Server.js",
   "scripts": {
