@@ -39,17 +39,29 @@ class App {
     /** Routes Setup */
     if (verbose) console.log('\t- Routes Setup')
     Object.keys(appConf.routes).forEach(function (element, index) {
-      const ctrlString = appConf.routes[element]
+      let method, route, controller, action
+      let policies = []
       const methodRgxp = /^(?:([a-z]*?) )?(.*)$/i
-      let method = (methodRgxp.exec(element)[1] + '').toLowerCase()
-      const route = methodRgxp.exec(element)[2]
+      method = (methodRgxp.exec(element)[1] + '').toLowerCase()
+      route = methodRgxp.exec(element)[2]
       if (['all', 'get', 'post', 'head', 'put', 'delete'].indexOf(method) === -1) {
         method = 'all'
       }
-      const tabCtrlStr = ctrlString.split('.')
-      const controller = tabCtrlStr[0]
-      const action = tabCtrlStr[1] || 'index'
-      App[method](route, require('./Controllers/' + controller)[action])
+      if (appConf.routes[element].controller) {
+        if (appConf.routes[element].policies) {
+          appConf.routes[element].policies.forEach(function (element, index) {
+            policies.push(appConf.policies[element])
+          })
+        }
+        controller = appConf.routes[element].controller
+        action = appConf.routes[element].action || 'index'
+      } else {
+        const ctrlString = appConf.routes[element]
+        const tabCtrlStr = ctrlString.split('.')
+        controller = tabCtrlStr[0]
+        action = tabCtrlStr[1] || 'index'
+      }
+      App[method](route, policies, require('./Controllers/' + controller)[action])
       if (verbose) console.log('\t\t- ' + method + ' ' + route + ' : ' + controller + '.' + action)
     })
     /** Errors Handling */

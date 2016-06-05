@@ -8,6 +8,7 @@ const Config = {
 
   server: require('./Server'),
   middlewares: require('./Middlewares'),
+  policies: require('./Policies'),
   routes: require('./Routes'),
   errors: require('./Errors'),
   db: require('./Database')
