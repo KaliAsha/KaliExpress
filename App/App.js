@@ -3,6 +3,7 @@ const http = require('http')
 const path = require('path')
 const express = require('express')
 const expressHbs = require('express-handlebars')
+const mongoose = require('mongoose')
 const Config = require('../Config/Config')
 
 class App {
@@ -58,6 +59,9 @@ class App {
       App.use(appConf.errors.devErrorHandler)
     }
     App.use(appConf.errors.prodErrorHandler)
+    if (appConf.db) {
+      mongoose.connect(appConf.db.connectStr)
+    }
   }
 
   start () {

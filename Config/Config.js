@@ -9,7 +9,8 @@ const Config = {
   server: require('./Server'),
   middlewares: require('./Middlewares'),
   routes: require('./Routes'),
-  errors: require('./Errors')
+  errors: require('./Errors'),
+  db: require('./Database')
 }
 
 module.exports = Config
