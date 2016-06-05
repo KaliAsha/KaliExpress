@@ -1,7 +1,7 @@
 /* Dependencies */
 
 const Routes = {
-  '/': 'MainController@index'
+  '/': 'MainController'
 }
 
 module.exports = Routes
