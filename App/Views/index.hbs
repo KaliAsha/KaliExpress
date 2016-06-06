@@ -1,1 +1,7 @@
 <h1>{{ message }}</h1>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+  var chatSocket = io('/chat');
+</script>

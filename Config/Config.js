@@ -11,7 +11,8 @@ const Config = {
   policies: require('./Policies'),
   routes: require('./Routes'),
   errors: require('./Errors'),
-  db: require('./Database')
+  db: require('./Database'),
+  socketIo: require('./SocketIo')
 }
 
 module.exports = Config

@@ -3,6 +3,7 @@ const http = require('http')
 const path = require('path')
 const express = require('express')
 const expressHbs = require('express-handlebars')
+const socketio = require('socket.io')
 const mongoose = require('mongoose')
 const Config = require('../Config/Config')
 
@@ -82,11 +83,16 @@ class App {
   }
 
   start () {
+    /** Create HTTP Server */
     const serverConfig = this.config.server
     const Server = this.server = http.createServer(this.app)
     Server.listen(serverConfig.port)
     Server.on('error', serverConfig.onError)
     Server.on('listening', serverConfig.onListening)
+    /** Create Socket.io Server */
+    const Io = this.io = socketio(Server)
+    this.config.socketIo.socket(Io)
+
   }
 }
 
