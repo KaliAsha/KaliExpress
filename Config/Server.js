@@ -2,6 +2,7 @@
 
 const Server = {
   port: 8080,
+  CORS: true,
   onError: function (error) {
     throw error
   },

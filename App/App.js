@@ -34,7 +34,12 @@ class App {
     /** Middlewares Setup */
     if (verbose) console.log('\t- Middlewares Setup')
     appConf.middlewares.forEach(function (element, index) {
-      App.use(element)
+      if (!appConf.server.CORS && element.name === 'enableCORS') {
+        return
+      } else {
+        App.use(element)
+        if (verbose) console.log('\t\t- ' + element.name)
+      }
     })
     /** Routes Setup */
     if (verbose) console.log('\t- Routes Setup')
