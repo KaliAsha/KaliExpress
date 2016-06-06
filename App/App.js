@@ -11,10 +11,10 @@ class App {
   constructor () {
     this.config = {}
     let self = this
+    // Load each config objects
     Object.keys(Config).forEach(function (element, index) {
       self.config[element] = Config[element]
     })
-
   }
 
   init () {
@@ -36,8 +36,10 @@ class App {
     if (verbose) console.log('\t- Middlewares Setup')
     appConf.middlewares.forEach(function (element, index) {
       if (!appConf.server.CORS && element.name === 'enableCORS') {
+        // Exclude enableCORS if disabled
         return
       } else {
+        // Load the middleware
         App.use(element)
         if (verbose) console.log('\t\t- ' + element.name)
       }
@@ -47,6 +49,7 @@ class App {
     Object.keys(appConf.routes).forEach(function (element, index) {
       let method, route, controller, action
       let policies = []
+      // Split route to set method and route
       const methodRgxp = /^(?:([a-z]*?) )?(.*)$/i
       method = (methodRgxp.exec(element)[1] + '').toLowerCase()
       route = methodRgxp.exec(element)[2]
@@ -54,6 +57,7 @@ class App {
         method = 'all'
       }
       if (appConf.routes[element].controller) {
+        // Use route options if they are set
         if (appConf.routes[element].policies) {
           appConf.routes[element].policies.forEach(function (element, index) {
             policies.push(appConf.policies[element])
@@ -62,11 +66,13 @@ class App {
         controller = appConf.routes[element].controller
         action = appConf.routes[element].action || 'index'
       } else {
+        // Else get controller infos from string
         const ctrlString = appConf.routes[element]
         const tabCtrlStr = ctrlString.split('.')
         controller = tabCtrlStr[0]
         action = tabCtrlStr[1] || 'index'
       }
+      // Load the route
       App[method](route, policies, require('./Controllers/' + controller)[action])
       if (verbose) console.log('\t\t- ' + method + ' ' + route + ' : ' + controller + '.' + action)
     })
@@ -77,7 +83,9 @@ class App {
       App.use(appConf.errors.devErrorHandler)
     }
     App.use(appConf.errors.prodErrorHandler)
+    /** Connection to MongoDB */
     if (appConf.db) {
+      // Connect if mongoDB's config exist
       mongoose.connect(appConf.db.connectStr)
     }
   }
